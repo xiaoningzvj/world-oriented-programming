@@ -1,12 +1,12 @@
-package code.Augus_30;
+package 2020-08-30
 
 import java.util.Stack;
 
-public class GetMainStack<T extends Comparable> {
+public class GetMinStack<T extends Comparable> {
     private Stack<T> dataStack;
     private Stack<T> minStack;
 
-    public GetMainStack() {
+    public GetMinStack() {
         dataStack = new Stack<>();
         minStack = new Stack<>();
     }
@@ -41,7 +41,7 @@ public class GetMainStack<T extends Comparable> {
     }
 
     public static void main(String[] args) {
-        GetMainStack<Integer> getMainStack = new GetMainStack<>();
+        GetMinStack<Integer> getMainStack = new GetMinStack<>();
         getMainStack.push(5);
         getMainStack.push(5);
         getMainStack.push(4);
