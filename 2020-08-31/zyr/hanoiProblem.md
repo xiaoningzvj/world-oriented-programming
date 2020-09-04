@@ -64,5 +64,5 @@ const step = hannoiProblem(num, 'left','mid','right');
 print(`It will move ${step} steps.`);
 ```
 
-* 栈实现 -- 用栈来模拟整个过成
+* 栈实现
   * 
