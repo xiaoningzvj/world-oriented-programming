@@ -1,50 +1,58 @@
-# 用栈来实现汉诺塔问题
+#  生成窗口最大数组
 
-> 问题描述：
->
-> 汉诺塔问题比较经典，这里修改一下游戏规则：现在限制不能从最左侧的塔直接移动到最右侧，也不能从最右侧直接移动到最左侧，而是必须经过中间。求当塔有n层的时候，打印最优移动过程和最优移动总步数。
+【题目】
 
-* 递归算法
+	> 有一个整型数组arr和一个大小为w的窗口从数组的最左边滑到最右边，窗口每次向右边滑一个位置，求每一种窗口状态下的最大值。（如果数组长度为n，窗口大小为w，则一共产生n-w+1个窗口的最大值）
 
-```javascript
-let nums = parseInt(readline());
-function hanoiProblem(num, left, mid, right){
-    if(num < 1) {
-        return 0
-    }
-    return process(num, left, right);
-}
-function process(num, from, to) {
-    if(num === 1) {
-        if(from === 'mid' || to === 'mid') {
-            print(`Move 1 from ${from} to ${to}`);
-            return 1;
-            
-        } else {
-            print(`Move 1 from ${from} to mid`);
-            print(`Move 1 from mid to ${to}`);
-            return 2;
-        }
-    }
-    if(from === 'mid' || to === 'mid') {
-        const another = (from === 'left' || to === 'left' ) ? 'right' : 'left';
-        const p1 = process(num - 1,from, another);
-        const p2 = 1;
-        print(`Move ${num} from mid to ${to}`);
-        const p3 = process(num -1,another, to);
-        return p1+p2+p3;
-    } else {
-        const p1 = process(num - 1, from, to);
-        let p2 = 1;
-        print(`Move ${num} from ${from} to mid`);
-        const p3 = process(num - 1, to,from);
-        p2++;
-        print(`Move ${num} from mid to ${to}`);
-        const p4 = process(num -1,from, to);
-        return p1+p2+p3+p4;
-    }
-}
-const step = hanoiProblem(nums,'left','mid','right');
-print(`It will move ${step} steps.`)
-```
+* 思路
 
+  * 一开始的思路
+
+    * 是使用简单那的循环的方式，但是，最后会突破参数和数组解析的极限。造成数组的越界访问。
+
+    * ```javascript
+      const width = readline().split(' ').map(item=>parseInt(item))[1];
+      const arr = readline().split(' ').map(item=>parseInt(item));
+      let res = [];
+      let start = 0;
+      let end = width - 1;
+      while(end !== arr.length) {
+          const splitarr = arr.slice(start,end + 1);
+          res.push(Math.max.apply(null, splitarr));
+          start++;
+          end++;
+      } 
+      print(res.join(' '));
+      ```
+
+      
+
+  * 标准答案的思路
+
+    * 双端队列， 存放arr的数组下标。实现窗口最大值的更新。
+
+      * 双端队列就是两端都可以进行进栈和出栈的操作
+      * 如果采用正常的思路来的话，时间复杂度O（N*w）
+
+      ```javascript
+      const w = readline().split(' ').map(item=>parseInt(item))[1];
+      const arr = readline().split(' ').map(item=>parseInt(item));
+      let res = [];
+      let help = [];
+      
+      for(let i = 0; i < arr.length; i++) {
+         while(help.length && arr[help[help.length - 1]] <= arr[i]) {
+             help.pop();
+         }
+         help.push(i);
+          if(help[0] === i - w) {
+              help.shift();
+          }
+          if(i >= w - 1) {
+              res.push(arr[help[0]]);
+          }
+      }
+      console.log(res.join(' '));
+      ```
+
+      
