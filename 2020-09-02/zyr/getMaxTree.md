@@ -58,8 +58,29 @@
 
   * 利用同样的方法可以求出每一个数往右边第一个比他大的数。
 
-  * ```
-    
+  * ```javascript
+    var constructMaximumBinaryTree = function(nums) {
+      // 采用栈的方式求解
+        let stack = [];
+        let currentNode = new TreeNode(null);
+        for(let i = 0; i<nums.length;i++) {
+            currentNode = new TreeNode(nums[i]);
+            while(stack.length && stack[stack.length - 1].val < nums[i]) {
+                const top = stack.pop();
+                if(stack.length && stack[stack.length - 1].val < nums[i]) {
+                    stack[stack.length - 1].right = top;
+                } else {
+                    currentNode.left = top; 
+                }
+            }
+            stack.push(currentNode);
+        }
+        while(stack.length) {
+            currentNode = stack.pop();
+            if(stack.length) stack[stack.length - 1].right = currentNode;
+        }
+        return currentNode;
+    };
     ```
 
     
