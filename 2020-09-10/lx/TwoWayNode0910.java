@@ -4,13 +4,13 @@
  * @description
  * @date 2020.09.11
  **/
-public class TwoWayNode<T extends Comparable> {
+public class TwoWayNode0910<T extends Comparable> {
 
-    public TwoWayNode<T> last;
+    public TwoWayNode0910<T> last;
     public T value;
-    public TwoWayNode<T> next;
+    public TwoWayNode0910<T> next;
 
-    public TwoWayNode(T value) {
+    public TwoWayNode0910(T value) {
         this.value = value;
         this.last = null;
         this.next = null;
@@ -20,4 +20,9 @@ public class TwoWayNode<T extends Comparable> {
     public String toString() {
         return " " + value + next;
     }
+
+    public Node0910 reverseList(Node0910 head) {
+        return null;
+    }
+
 }
