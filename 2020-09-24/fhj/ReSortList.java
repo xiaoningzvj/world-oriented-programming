@@ -58,4 +58,72 @@ public class ReSortList {
         arr[i] = arr[j];
         arr[j] = temp;
     }
+
+    //第二种做法  多链表法
+    //搞三个链表  分小于 等于 大于 三个部分 分别去连
+    //最后统一连接
+    public Node reSortListTwo(Node head, int pivot) {
+        if (head == null) {
+            return head;
+        }
+        Node lh = null;
+        Node lt = null;
+        Node mh = null;
+        Node mt = null;
+        Node rh = null;
+        Node rt = null;
+        Node next = null;
+        while (head != null) {
+            //提前获取下一节点
+            next = head.right;
+            //断开当前节点与后面的联系
+            head.right = null;
+            if (head.value < pivot) {
+                if (lh == null) {
+                    lh = head;
+                    lt = head;
+                } else {
+                    lt.right = head;
+                    lt = head;
+                }
+            } else if (head.value == pivot) {
+                if (mh == null) {
+                    mh = head;
+                    mt = head;
+                } else {
+                    mt.right = head;
+                    mt = head;
+                }
+            } else {
+                if (rh == null) {
+                    rh = head;
+                    rt = head;
+                } else {
+                    rt.right = head;
+                    rt = head;
+                }
+            }
+            //遍历
+            head = next;
+        }
+        //遍历结束 (ON) 做连接
+        Node top = null;
+        if (lh != null) {
+            lh = top;
+            if (mh != null) {
+                lt.right = mh;
+                mt.right = rh;
+            } else {
+                lt.right = rh;
+            }
+        } else {
+            if (mh != null) {
+                top = mh;
+                mt.right = rh;
+            } else {
+                top = rh;
+            }
+        }
+        return top;
+    }
 }
