@@ -12,10 +12,6 @@ public class MergeList {
         System.out.print(123456);
     }
 
-    //首先想到
-    //1.获得两个字符串，相加，在重新赋值新链表？？这么做虽然简单 但是占用了空间
-    //缺陷：数字过大的时候，无法用int表示，做和
-    //2.
     public Node mergeList(Node head1, Node head2) {
         Stack<Integer> stackleft = new Stack<>();
         Stack<Integer> stackRight = new Stack<>();
